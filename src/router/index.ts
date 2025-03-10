@@ -16,6 +16,7 @@ import ConfirmarPedido from '../views/ConfirmarPedidoView.vue';
 import PedidoDetalle from '../views/PedidoDetalleView.vue';
 import MiCuenta from '../views/MiCuentaView.vue';
 import AdminView from '../views/AdminView.vue';
+import ProductoAutoriaView from '../views/ProductoAutoriaView.vue'; // <-- Nueva importación
 
 const routes = [
   { path: '/', name: 'Home', component: HomeView },
@@ -32,7 +33,8 @@ const routes = [
   { path: '/register', name: 'Register', component: RegisterView },
   { path: '/forgot-password', name: 'ForgotPassword', component: ForgotPasswordView },
   { path: '/admin', name: 'Admin', component: AdminView },
-  { path: '/reset-password', name: 'ResetPassword', component: ResetPasswordView }
+  { path: '/reset-password', name: 'ResetPassword', component: ResetPasswordView },
+  { path: '/producto-autoria', name: 'ProductoAutoria', component: ProductoAutoriaView } // <-- Nueva ruta
 ];
 
 const router = createRouter({

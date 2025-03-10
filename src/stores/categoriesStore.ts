@@ -16,7 +16,7 @@ export const useCategoriesStore = defineStore('categories', () => {
   // Función para obtener las categorías desde la API
   const fetchCategories = async () => {
     try {
-      const response = await axios.get('api/Categoria'); // ✅ Petición a la API
+      const response = await axios.get('http://localhost:5162/api/Categoria'); // ✅ Petición a la API con el nuevo enlace
       const data = response.data; // ✅ Extrae los datos correctamente
 
       // Asignar datos correctamente usando la URL de imagen de la API
