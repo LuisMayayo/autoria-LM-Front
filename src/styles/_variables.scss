@@ -1,0 +1,186 @@
+// 📌 Importa las fuentes utilizadas
+@import url('https://fonts.googleapis.com/css2?family=Phudu:wght@300..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300..900&display=swap');
+
+// 🎨 **Paleta de colores principal**
+$primary-color: #06AA51;
+$primary-color-hover: #059447;
+$primary-hover: #0056b3; // Variable añadida
+$secondary-color: #000000;
+$tertiary-color: #F4F4F4;
+$background-color: #ffffff;
+$text-color: #000000;
+$text-color-secondary: #555555;
+$highlight-color: #06AA51;
+$border-color: #333333;
+$color-borde: $border-color;
+$color-borde-icono: #666666;
+$color-fondo-menu: rgba(27, 27, 27, 0.79);
+$color-fondo-asientos: #101010;
+$color-pantalla: #d6d6c2;
+
+// ⚠️ **Estados de alerta**
+$error-color: #E63946;
+$success-color: #2A9D8F;
+$warning-color: #E9C46A;
+$info-color: #457B9D;
+
+// 💡 **Colores interactivos (botones, enlaces, etc.)**
+$color-boton-reserva: $primary-color;
+$color-boton-reserva-disabled: #555555;
+$color-hover-boton: #04893F;
+$button-text-color: #ffffff;
+$button-remove-color: red;
+$button-remove-hover: darkred;
+
+// 📏 **Espaciados y tamaños**
+$spacing-xs: 4px;
+$spacing-sm: 8px;
+$spacing-md: 16px;
+$spacing-lg: 24px;
+$spacing-xl: 32px;
+$spacing-xxl: 48px;
+$padding-xs: $spacing-xs;
+$padding-sm: $spacing-sm;
+$padding-md: $spacing-md;
+$padding-lg: $spacing-lg;
+$padding-xl: $spacing-xl;
+
+// 🖋 **Tipografía**
+$font-family-primary: 'Phudu', sans-serif;
+$font-family-secondary: 'Roboto', sans-serif;
+$font-size-small: 14px;
+$font-size-base: 16px;
+$font-size-large: 18px;
+$font-size-xl: 24px;
+$font-size-xxl: 32px;
+$font-size-h1: 2rem;
+$font-size-h1-large: 2.5rem;
+$line-height-base: 1.6;
+$line-height-tight: 1.3;
+$letter-spacing: 0.5px;
+
+// 📱 **Breakpoints Responsive**
+$breakpoint-xs: 480px;
+$breakpoint-sm: 600px;
+$breakpoint-md: 960px;
+$breakpoint-lg: 1280px;
+$breakpoint-xl: 1920px;
+
+// 🎨 **Sombras y Bordes**
+$border-radius-xs: 2px;
+$border-radius-sm: 4px;
+$border-radius-md: 6px;
+// $border-radius: 8px; (ya lo tienes)
+$border-radius-lg: 12px;
+$border-radius-xl: 16px;
+$border-radius-2xl: 24px;
+$border-radius-3xl: 32px;
+$border-radius-circle: 50%;
+$border-radius-pill: 9999px;
+$border-radius: 8px;
+
+$box-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+$box-shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+// $box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); (ya lo tienes)
+$box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+$box-shadow-lg: 0 4px 10px rgba(0, 0, 0, 0.15);
+$box-shadow-xl: 0 10px 15px rgba(0, 0, 0, 0.2);
+$box-shadow-2xl: 0 20px 25px rgba(0, 0, 0, 0.25);
+$box-shadow-inner: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+
+$border-width: 1px;
+$border-width-md: 2px;
+$border-width-lg: 3px;
+$border-style: solid;
+
+// 🎨 **Sombras para botones**
+$button-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+$button-hover-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+
+// 🖼 **Z-index** (Sistema de capas)
+$z-index-deepdive: -99999;
+$z-index-dive: -1;
+$z-index-default: 1;
+$z-index-docked: 4;
+$z-index-sticky: 100;
+$z-index-popup: 5000;
+$z-index-dialog: 6000;
+$z-index-dropdown: 7000;
+$z-index-overlay: 8000;
+$z-index-modal: 9000;
+$z-index-spinner: 9050;
+$z-index-toast: 10000;
+
+// 🔄 **Transiciones y Animaciones** (Duración)
+$duration-instant: 0.1s;
+$duration-quick: 0.2s;
+$duration-normal: 0.3s;
+$duration-slow: 0.5s;
+$duration-slower: 0.8s;
+
+// 🎨 **Opacidad**
+$opacity-light: 0.2;
+$opacity-medium: 0.5;
+$opacity-heavy: 0.8;
+$opacity-full: 1;
+
+// 📊 **Grid y Layout**
+$grid-gutter-width: 24px;
+$grid-columns: 12;
+$container-padding: $spacing-lg;
+$section-spacing: $spacing-xl;
+$container-width: 1200px;
+$max-width: 100%;
+
+// 🖋 **Tipografía adicional**
+$font-weight-light: 300;
+$font-weight-regular: 400;
+$font-weight-medium: 500;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+$font-weight-black: 900;
+
+// 🎛 **Botones adicionales**
+$button-radius-sm: 4px;
+// $button-radius: 8px; (ya lo tienes)
+$button-radius: 8px;
+$button-radius-lg: 12px;
+$button-radius-xl: 16px;
+$button-radius-pill: 9999px;
+
+// 🏁 **Animaciones adicionales**
+$transition-bounce: 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+$transition-ease-in: 0.3s ease-in;
+$transition-ease-out: 0.3s ease-out;
+
+// 🎛 **Botones**
+$form-button-radius: 8px;
+$button-padding: 10px 20px;
+$button-font-size: $font-size-base;
+
+// 🛒 **Carrito y Pedidos**
+$cart-item-background: #F4F4F4;
+$cart-item-border: #CCCCCC;
+$cart-total-price-size: 1.5rem;
+$cart-total-checkout-size: 1.2rem;
+$order-confirmed-color: #06AA51;
+$order-pending-color: #E9C46A;
+$order-cancelled-color: #E63946;
+
+// 🏁 **Animaciones**
+$transition-fast: 0.2s ease-in-out;
+$transition-normal: 0.3s ease-in-out;
+$transition-slow: 0.5s ease-in-out;
+
+// 🖼 **Estilos generales y de inputs**
+$input-border-radius: 5px;
+$input-padding: 10px;
+$input-border: 1px solid $border-color;
+$input-focus-border: 1px solid #078C52;
+
+$status-pending-text: #000000; // Texto oscuro para fondo warning
+$status-completed-text: #ffffff; // Texto claro para fondo success
+$status-shipped-text: #ffffff;   // Texto claro para fondo info
+$status-cancelled-text: #ffffff; // Texto claro para fondo error
+$tertiary-color-hover: #e0e0e0;

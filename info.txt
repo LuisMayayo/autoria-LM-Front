@@ -1,0 +1,18 @@
+Libreria iconos
+npm install @fortawesome/fontawesome-svg-core @fortawesome/free-solid-svg-icons @fortawesome/vue-fontawesome
+
+Libreria pinia (login)
+npm install pinia-plugin-persistedstate
+
+JWT
+npm install jwt-decode
+npm install --save-dev @types/jwt-decode
+
+Notificaciones
+npm install vue-toastification@next
+
+Paquete compilacion SFC
+npm install -D @vue/compiler-sfc
+
+Validacion formulario 
+npm install @vuelidate/core @vuelidate/validators
