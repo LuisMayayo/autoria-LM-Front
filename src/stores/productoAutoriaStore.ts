@@ -1,7 +1,6 @@
 // src/stores/productoAutoriaStore.ts
-
-import { defineStore } from 'pinia'
-import axios from 'axios'
+import { defineStore } from 'pinia';
+import axios from 'axios';
 
 /**
  * Interfaz que representa un producto con autoría.
@@ -33,8 +32,8 @@ export const useProductoAutoriaStore = defineStore('productoAutoria', {
       this.loading = true;
       this.error = null;
       try {
-        // Se asume que el endpoint es '/api/productoautoria'
-        const response = await axios.get<ProductoAutoria[]>('/api/productoautoria');
+        // Se utiliza el endpoint completo según lo indicado.
+        const response = await axios.get<ProductoAutoria[]>('http://localhost:5162/api/ProductoAutoria');
         this.productos = response.data;
         console.log("Store: Productos cargados correctamente:", this.productos);
       } catch (error: any) {
