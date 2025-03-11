@@ -35,7 +35,7 @@ export const useProductoAutoriaStore = defineStore('productoAutoria', {
       this.loading = true;
       this.error = null;
       try {
-        const response = await axios.get<ProductoAutoria[]>('http://localhost:5162/api/ProductoAutoria');
+        const response = await axios.get<ProductoAutoria[]>('http://localhost:5162/api/productobbdd');
         this.productos = response.data;
         console.log("Store: Productos cargados correctamente:", this.productos);
       } catch (error: any) {
@@ -54,7 +54,7 @@ export const useProductoAutoriaStore = defineStore('productoAutoria', {
     async fetchProductoById(id: number): Promise<ProductoAutoria | null> {
       console.log(`Store: Obteniendo producto con id: ${id}`);
       try {
-        const response = await axios.get<ProductoAutoria>(`http://localhost:5162/api/ProductoAutoria/${id}`);
+        const response = await axios.get<ProductoAutoria>(`http://localhost:5162/api/productobbdd/${id}`);
         console.log("Store: Producto obtenido:", response.data);
         return response.data;
       } catch (error: any) {
@@ -71,7 +71,7 @@ export const useProductoAutoriaStore = defineStore('productoAutoria', {
     async createProducto(producto: Omit<ProductoAutoria, 'id'>): Promise<ProductoAutoria | null> {
       console.log("Store: Creando producto...", producto);
       try {
-        const response = await axios.post<ProductoAutoria>('http://localhost:5162/api/ProductoAutoria', producto);
+        const response = await axios.post<ProductoAutoria>('http://localhost:5162/api/productobbdd', producto);
         console.log("Store: Producto creado:", response.data);
         // Agregar el nuevo producto a la lista local.
         this.productos.push(response.data);
@@ -90,7 +90,7 @@ export const useProductoAutoriaStore = defineStore('productoAutoria', {
     async updateProducto(producto: ProductoAutoria): Promise<boolean> {
       console.log("Store: Actualizando producto...", producto);
       try {
-        await axios.put(`http://localhost:5162/api/ProductoAutoria/${producto.id}`, producto);
+        await axios.put(`http://localhost:5162/api/productobbdd/${producto.id}`, producto);
         console.log("Store: Producto actualizado exitosamente");
         // Actualizar el producto en la lista local.
         const index = this.productos.findIndex(p => p.id === producto.id);
@@ -112,7 +112,7 @@ export const useProductoAutoriaStore = defineStore('productoAutoria', {
     async deleteProducto(id: number): Promise<boolean> {
       console.log(`Store: Eliminando producto con id: ${id}`);
       try {
-        await axios.delete(`http://localhost:5162/api/ProductoAutoria/${id}`);
+        await axios.delete(`http://localhost:5162/api/productobbdd/${id}`);
         console.log("Store: Producto eliminado exitosamente");
         // Remover el producto de la lista local.
         this.productos = this.productos.filter(p => p.id !== id);
