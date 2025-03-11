@@ -16,7 +16,8 @@ import ConfirmarPedido from '../views/ConfirmarPedidoView.vue';
 import PedidoDetalle from '../views/PedidoDetalleView.vue';
 import MiCuenta from '../views/MiCuentaView.vue';
 import AdminView from '../views/AdminView.vue';
-import ProductoAutoriaView from '../views/ProductoAutoriaView.vue'; // <-- Nueva importación
+import ProductoAutoriaView from '../views/ProductoAutoriaView.vue';
+import CocheAutoriaView from '../views/CocheAutoriaView.vue'; // <-- Nueva importación
 
 const routes = [
   { path: '/', name: 'Home', component: HomeView },
@@ -34,7 +35,8 @@ const routes = [
   { path: '/forgot-password', name: 'ForgotPassword', component: ForgotPasswordView },
   { path: '/admin', name: 'Admin', component: AdminView },
   { path: '/reset-password', name: 'ResetPassword', component: ResetPasswordView },
-  { path: '/producto-autoria', name: 'ProductoAutoria', component: ProductoAutoriaView } // <-- Nueva ruta
+  { path: '/producto-autoria', name: 'ProductoAutoria', component: ProductoAutoriaView },
+  { path: '/coche-autoria', name: 'CocheAutoria', component: CocheAutoriaView } // <-- Nueva ruta
 ];
 
 const router = createRouter({
