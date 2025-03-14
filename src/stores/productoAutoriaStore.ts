@@ -3,7 +3,7 @@ import { defineStore } from 'pinia';
 import axios from 'axios';
 
 /**
- * Interfaz que representa un producto con autoría, incluyendo nuevos campos.
+ * Interfaz que representa un producto con autoría.
  */
 export interface ProductoAutoria {
   id: number;
@@ -14,21 +14,32 @@ export interface ProductoAutoria {
 }
 
 /**
- * Store de Pinia para gestionar ProductoAutoria.
- * Incluye métodos para realizar operaciones CRUD contra el endpoint.
+ * Store Pinia para gestionar ProductoAutoria.
+ * Incluye métodos CRUD y filtrado por título.
  */
 export const useProductoAutoriaStore = defineStore('productoAutoria', {
   state: () => ({
-    // Lista de productos que se mostrará en la vista.
     productos: [] as ProductoAutoria[],
-    // Indicador de carga para mostrar estado de la operación.
     loading: false,
-    // Mensaje de error en caso de que ocurra algún problema.
     error: null as string | null,
+    filtroTitulo: '' // Estado para el filtro por título
   }),
+
+  getters: {
+    /**
+     * Devuelve los productos filtrados según el título.
+     */
+    productosFiltrados(state): ProductoAutoria[] {
+      if (!state.filtroTitulo) return state.productos;
+      return state.productos.filter(p =>
+        p.titulo.toLowerCase().includes(state.filtroTitulo.toLowerCase())
+      );
+    }
+  },
+
   actions: {
     /**
-     * Obtiene todos los productos desde el API REST.
+     * Obtiene todos los productos desde la API REST.
      */
     async fetchProductos() {
       console.log("Store: Iniciando la carga de productos...");
@@ -44,6 +55,13 @@ export const useProductoAutoriaStore = defineStore('productoAutoria', {
       } finally {
         this.loading = false;
       }
+    },
+    /**
+     * Actualiza el filtro por título.
+     * @param filtro Texto a filtrar en los títulos de los productos.
+     */
+    setFiltroTitulo(filtro: string) {
+      this.filtroTitulo = filtro;
     },
 
     /**

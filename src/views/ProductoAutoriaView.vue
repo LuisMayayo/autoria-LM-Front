@@ -1,83 +1,91 @@
 <!-- src/views/ProductoAutoriaView.vue -->
 <template>
   <div>
-    <h1>Productos Autoria</h1>
+    <h1>📚 Productos con Autoría</h1>
 
-    <!-- Apartado para mostrar la media de los precios -->
-    <section class="media-precios" v-if="store.productos.length > 0">
-      <h3>Precio Medio: €{{ averagePrice.toFixed(2) }}</h3>
+    <!-- Filtro por título -->
+    <section class="filtro">
+      <input
+        type="text"
+        placeholder="🔍 Filtrar productos por título..."
+        v-model="filtro"
+      />
+      <button @click="limpiarFiltro">Limpiar Filtro</button>
     </section>
 
-    <!-- Formulario para crear o actualizar un producto -->
+    <!-- Precio promedio -->
+    <section class="media-precios" v-if="store.productos.length > 0">
+      <h3>💰 Precio Medio: €{{ averagePrice.toFixed(2) }}</h3>
+    </section>
+
+    <!-- Lista de productos filtrados -->
+    <section class="lista-productos">
+      <h2>📖 Lista de Productos</h2>
+
+      <!-- Mensajes de estado -->
+      <div v-if="store.loading">⏳ Cargando productos...</div>
+      <div v-if="store.error" class="error">❌ Error: {{ store.error }}</div>
+
+      <!-- Productos filtrados -->
+      <ul v-if="productosFiltrados.length > 0">
+        <li v-for="producto in productosFiltrados" :key="producto.id" class="producto">
+          <ProductoAutoriaCard :producto="producto" />
+          <div class="acciones">
+            <button @click="editProducto(producto)">✏️ Editar</button>
+            <button @click="deleteProducto(producto.id)">🗑️ Eliminar</button>
+          </div>
+        </li>
+      </ul>
+
+      <!-- Mensaje cuando no hay coincidencias -->
+      <div v-else>No hay productos que coincidan con el filtro.</div>
+    </section>
+
+    <!-- Formulario Crear/Editar producto -->
     <section class="formulario">
-      <h2>{{ isEditing ? "Editar Producto" : "Agregar Producto" }}</h2>
-      <!-- Al enviar el formulario se ejecuta la función submitForm -->
+      <h2>{{ isEditing ? "✏️ Editar Producto" : "➕ Agregar Producto" }}</h2>
       <form @submit.prevent="submitForm">
-        <!-- Campo para el título -->
+        <!-- Título -->
         <div>
           <label for="titulo">Título:</label>
           <input type="text" id="titulo" v-model="form.titulo" required />
         </div>
-        <!-- Campo para el autor -->
+        <!-- Autor -->
         <div>
           <label for="autor">Autor:</label>
           <input type="text" id="autor" v-model="form.autor" required />
         </div>
-        <!-- Campo para el precio -->
+        <!-- Precio -->
         <div>
-          <label for="precio">Precio:</label>
+          <label for="precio">Precio (€):</label>
           <input type="number" id="precio" v-model.number="form.precio" step="0.01" required />
         </div>
-        <!-- Campo para el número de serie -->
+        <!-- Número de Serie -->
         <div>
           <label for="numeroSerie">Número de Serie:</label>
           <input type="text" id="numeroSerie" v-model="form.numeroSerie" required />
         </div>
-        <!-- Botones de envío y cancelar (solo en modo edición) -->
+        <!-- Botones del formulario -->
         <div class="botones">
-          <button type="submit">{{ isEditing ? "Actualizar" : "Crear" }}</button>
-          <button type="button" v-if="isEditing" @click="cancelEdit">Cancelar</button>
+          <button type="submit">{{ isEditing ? "Actualizar ✅" : "Crear ➕" }}</button>
+          <button type="button" v-if="isEditing" @click="cancelEdit">Cancelar ❌</button>
         </div>
       </form>
     </section>
 
-    <!-- Lista de productos -->
-    <section class="lista-productos">
-      <h2>Lista de Productos</h2>
-      <!-- Mensajes de carga o error -->
-      <div v-if="store.loading">Cargando productos...</div>
-      <div v-if="store.error" class="error">Error: {{ store.error }}</div>
-      <div v-if="!store.loading && store.productos.length === 0">
-        No hay productos para mostrar.
-      </div>
-      <!-- Se muestra cada producto en una lista -->
-      <ul>
-        <li v-for="producto in store.productos" :key="producto.id" class="producto">
-          <!-- Se muestra la información del producto -->
-          <div>
-            <strong>{{ producto.titulo }}</strong> - {{ producto.autor }} -
-            €{{ producto.precio.toFixed(2) }} - {{ producto.numeroSerie }}
-          </div>
-          <!-- Botones para editar o eliminar el producto -->
-          <div class="acciones">
-            <button @click="editProducto(producto)">Editar</button>
-            <button @click="deleteProducto(producto.id)">Eliminar</button>
-          </div>
-        </li>
-      </ul>
-    </section>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, computed } from 'vue';
+import { ref, onMounted, computed, watch } from 'vue';
 import { useProductoAutoriaStore, ProductoAutoria } from '../stores/productoAutoriaStore';
+import ProductoAutoriaCard from '../components/ProductoAutoriaCard.vue';
 
-// Obtenemos el store de productos
+// Store Pinia
 const store = useProductoAutoriaStore();
 
-// Estado reactivo para los datos del formulario
-const form = ref({
+// Estado del formulario
+const form = ref<ProductoAutoria>({
   id: 0,
   titulo: '',
   autor: '',
@@ -85,86 +93,76 @@ const form = ref({
   numeroSerie: ''
 });
 
-// Bandera para saber si el formulario está en modo edición
+// Estado edición o creación
 const isEditing = ref(false);
 
-// Al montar la vista se cargan los productos
+// Estado local para filtro
+const filtro = ref('');
+
+// Cargar productos al montar el componente
 onMounted(() => {
   store.fetchProductos();
 });
 
-// Computed para calcular la media de los precios de los productos
-const averagePrice = computed(() => {
-  if (store.productos.length === 0) return 0;
-  const total = store.productos.reduce((sum, producto) => sum + producto.precio, 0);
-  return total / store.productos.length;
+// Watcher para actualizar filtro en el store automáticamente
+watch(filtro, (nuevoFiltro) => {
+  store.setFiltroTitulo(nuevoFiltro);
 });
 
-/**
- * Maneja el envío del formulario para crear o actualizar un producto.
- */
+// Computed para obtener productos filtrados desde el store
+const productosFiltrados = computed(() => store.productosFiltrados);
+
+// Computed para calcular precio medio
+const averagePrice = computed(() => {
+  if (!store.productos.length) return 0;
+  const suma = store.productos.reduce((acc, prod) => acc + prod.precio, 0);
+  return suma / store.productos.length;
+});
+
+// Enviar formulario (crear o actualizar)
 async function submitForm() {
   if (isEditing.value) {
-    // Si estamos en modo edición, actualizamos el producto existente
-    console.log("Actualizando producto:", form.value);
-    const producto: ProductoAutoria = { ...form.value };
-    const success = await store.updateProducto(producto);
+    const success = await store.updateProducto(form.value);
     if (success) {
       resetForm();
       isEditing.value = false;
     }
   } else {
-    // Si no estamos en modo edición, creamos un nuevo producto
-    console.log("Creando nuevo producto:", form.value);
-    const newProduct = {
+    await store.createProducto({
       titulo: form.value.titulo,
       autor: form.value.autor,
       precio: form.value.precio,
       numeroSerie: form.value.numeroSerie
-    };
-    await store.createProducto(newProduct);
+    });
     resetForm();
   }
 }
 
-/**
- * Pone en modo edición y carga los datos del producto seleccionado en el formulario.
- * @param producto Producto a editar.
- */
+// Editar producto (cargar datos en formulario)
 function editProducto(producto: ProductoAutoria) {
-  console.log("Editando producto:", producto);
   form.value = { ...producto };
   isEditing.value = true;
 }
 
-/**
- * Cancela el modo edición y reinicia el formulario.
- */
+// Cancelar edición
 function cancelEdit() {
   resetForm();
   isEditing.value = false;
 }
 
-/**
- * Reinicia el formulario a sus valores por defecto.
- */
+// Resetear formulario
 function resetForm() {
-  form.value = {
-    id: 0,
-    titulo: '',
-    autor: '',
-    precio: 0,
-    numeroSerie: ''
-  };
+  form.value = { id: 0, titulo: '', autor: '', precio: 0, numeroSerie: '' };
 }
 
-/**
- * Elimina un producto mediante su ID.
- * @param id Identificador del producto a eliminar.
- */
+// Eliminar producto por ID
 async function deleteProducto(id: number) {
-  console.log("Eliminando producto con id:", id);
   await store.deleteProducto(id);
+}
+
+// Limpiar input del filtro
+function limpiarFiltro() {
+  filtro.value = '';
 }
 </script>
 
@@ -173,29 +171,23 @@ async function deleteProducto(id: number) {
   color: red;
 }
 
-/* Estilos para el apartado de media de precios */
-.media-precios {
-  border: 1px solid #ccc;
-  padding: 12px;
-  margin-bottom: 20px;
-  border-radius: 4px;
-  background: #f9f9f9;
-}
-
-/* Estilos simples para el formulario y la lista */
-.formulario {
+.media-precios,
+.formulario,
+.lista-productos,
+.filtro {
   border: 1px solid #ccc;
   padding: 16px;
   margin-bottom: 20px;
   border-radius: 4px;
 }
 
-.formulario div {
-  margin-bottom: 10px;
+.filtro input {
+  padding: 8px;
 }
 
-.botones button {
-  margin-right: 10px;
+.botones button,
+.filtro button {
+  margin-left: 8px;
 }
 
 .lista-productos ul {
@@ -204,10 +196,6 @@ async function deleteProducto(id: number) {
 }
 
 .producto {
-  border: 1px solid #ddd;
-  padding: 12px;
-  margin-bottom: 8px;
-  border-radius: 4px;
   display: flex;
   justify-content: space-between;
   align-items: center;

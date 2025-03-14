@@ -6,7 +6,7 @@
     </div>
     <div class="card-body">
       <p><strong>Autor:</strong> {{ producto.autor }}</p>
-      <p><strong>Precio:</strong> ${{ producto.precio.toFixed(2) }}</p>
+      <p><strong>Precio:</strong> €{{ producto.precio.toFixed(2) }}</p>
       <p><strong>Número de Serie:</strong> {{ producto.numeroSerie }}</p>
     </div>
   </div>
