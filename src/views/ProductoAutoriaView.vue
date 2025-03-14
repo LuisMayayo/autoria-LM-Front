@@ -43,7 +43,7 @@
 
     <!-- Formulario Crear/Editar producto -->
     <section class="formulario">
-      <h2>{{ isEditing ? "Editar Producto" : "➕ Agregar Producto" }}</h2>
+      <h2>{{ isEditing ? "Editar Producto" : "Agregar Producto" }}</h2>
       <form @submit.prevent="submitForm">
         <!-- Título -->
         <div>
