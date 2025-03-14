@@ -1,54 +1,48 @@
-# Dependencias de Node
+# Node.js
 node_modules/
-.dist/
-.env
-.env.*.local
-
-# Archivos de compilación y caché
-*.log
-*.tsbuildinfo
-yarn.lock
-package-lock.json
 npm-debug.log*
-yarn-debug.log*
 yarn-error.log*
 
-# Directorios generados por Vue CLI
-public/
-!.env.local
-!.env.*.local
-.DS_Store
-.idea/
+# Build output
+dist/
+
+# Editor/IDE files
 .vscode/
-.history/
-*.sublime-workspace
+.idea/
 *.sublime-project
+*.sublime-workspace
 
-# Archivos de configuración de sistema y editores
+# System files
+.DS_Store
 Thumbs.db
-*.iml
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
 
-# Archivos de configuración de test
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Logs
+logs/
+*.log
+
+# Cache files
+.cache/
+
+# Linting
+eslintcache
+
+# Testing
 coverage/
-jest.config.js
-tests/**/*.spec.ts
+/junit.xml
 
-# Caché y compilación de TypeScript
+# TypeScript
 *.tsbuildinfo
-out/
 
-# Caché y logs de ESLint
-.eslintcache
+# Vue-related
+*.vuepress/
+.vuepress/dist/
+public/
 
-# Archivos de configuración de API y Docker
-docker-compose*.yml
-Dockerfile
-*.pem
-
-# Archivos específicos para el entorno de desarrollo
-local.env
+# Other
+*.bak
+*.swp

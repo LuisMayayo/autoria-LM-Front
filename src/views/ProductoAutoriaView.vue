@@ -4,13 +4,38 @@
     <h1>Productos con Autoría</h1>
 
     <!-- Filtro por título -->
-    <section class="filtro">
-      <input
-        type="text"
-        placeholder="Filtrar productos por título..."
-        v-model="filtro"
-      />
-      <button @click="limpiarFiltro">Limpiar Filtro</button>
+    <section class="filtros">
+      <!-- Filtro por título -->
+      <div>
+        <input
+          type="text"
+          placeholder="🔍 Filtrar por título..."
+          v-model="filtroTitulo"
+        />
+        <button @click="limpiarFiltroTitulo">Limpiar Título</button>
+      </div>
+
+      <!-- Filtro por autor -->
+      <div>
+        <input
+          type="text"
+          placeholder="🔍 Filtrar por autor..."
+          v-model="filtroAutor"
+        />
+        <button @click="limpiarFiltroAutor">Limpiar Autor</button>
+      </div>
+
+      <!-- Filtro por NumeroSerie -->
+      <div>
+        <input
+          type="text"
+          placeholder="🔍 Filtrar por NumeroSerie..."
+          v-model="filtroNumeroSerie"
+        />
+        <button @click="limpiarFiltroNumeroSerie">Limpiar NumeroSerie</button>
+      </div>
+
+      
     </section>
 
     <!-- Precio promedio -->
@@ -96,21 +121,43 @@ const form = ref<ProductoAutoria>({
 // Estado edición o creación
 const isEditing = ref(false);
 
-// Estado local para filtro
-const filtro = ref('');
-
+// Estados locales para los filtros
+const filtroTitulo = ref('');
+const filtroAutor = ref('');
+const filtroNumeroSerie = ref('');
 // Cargar productos al montar el componente
 onMounted(() => {
   store.fetchProductos();
 });
 
-// Watcher para actualizar filtro en el store automáticamente
-watch(filtro, (nuevoFiltro) => {
+// Watchers para actualizar filtros en el store automáticamente
+watch(filtroTitulo, (nuevoFiltro) => {
   store.setFiltroTitulo(nuevoFiltro);
+});
+
+watch(filtroAutor, (nuevoFiltro) => {
+  store.setFiltroAutor(nuevoFiltro);
+});
+
+watch(filtroNumeroSerie, (nuevoFiltro) => {
+  store.setFiltroNumeroSerie(nuevoFiltro);
 });
 
 // Computed para obtener productos filtrados desde el store
 const productosFiltrados = computed(() => store.productosFiltrados);
+
+// Funciones para limpiar los filtros
+function limpiarFiltroTitulo() {
+  filtroTitulo.value = '';
+}
+
+function limpiarFiltroAutor() {
+  filtroAutor.value = '';
+}
+
+function limpiarFiltroNumeroSerie() {
+  filtroNumeroSerie.value = '';
+}
 
 // Computed para calcular precio medio
 const averagePrice = computed(() => {
@@ -160,10 +207,6 @@ async function deleteProducto(id: number) {
   await store.deleteProducto(id);
 }
 
-// Limpiar input del filtro
-function limpiarFiltro() {
-  filtro.value = '';
-}
 </script>
 
 <style scoped>
