@@ -9,7 +9,7 @@
       <div>
         <input
           type="text"
-          placeholder="🔍 Filtrar por título..."
+          placeholder=" Filtrar por título..."
           v-model="filtroTitulo"
         />
         <button @click="limpiarFiltroTitulo">Limpiar Título</button>
@@ -19,7 +19,7 @@
       <div>
         <input
           type="text"
-          placeholder="🔍 Filtrar por autor..."
+          placeholder=" Filtrar por autor..."
           v-model="filtroAutor"
         />
         <button @click="limpiarFiltroAutor">Limpiar Autor</button>
@@ -29,7 +29,7 @@
       <div>
         <input
           type="text"
-          placeholder="🔍 Filtrar por NumeroSerie..."
+          placeholder=" Filtrar por NumeroSerie..."
           v-model="filtroNumeroSerie"
         />
         <button @click="limpiarFiltroNumeroSerie">Limpiar NumeroSerie</button>
