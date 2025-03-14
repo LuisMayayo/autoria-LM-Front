@@ -82,7 +82,7 @@
         </router-link>
         <router-link to="/coche-autoria" class="navbar__menu-item"
           :class="{ 'navbar__menu-item--active': $route.path.startsWith('/coche-autoria') }">
-          Coche Autoria
+          Prueba
         </router-link>
         <router-link to="/sobre-nosotros" class="navbar__menu-item"
           :class="{ 'navbar__menu-item--active': $route.path.startsWith('/sobre-nosotros') }">

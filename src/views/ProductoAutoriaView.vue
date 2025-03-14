@@ -1,13 +1,13 @@
 <!-- src/views/ProductoAutoriaView.vue -->
 <template>
   <div>
-    <h1>📚 Productos con Autoría</h1>
+    <h1>Productos con Autoría</h1>
 
     <!-- Filtro por título -->
     <section class="filtro">
       <input
         type="text"
-        placeholder="🔍 Filtrar productos por título..."
+        placeholder="Filtrar productos por título..."
         v-model="filtro"
       />
       <button @click="limpiarFiltro">Limpiar Filtro</button>
@@ -15,24 +15,24 @@
 
     <!-- Precio promedio -->
     <section class="media-precios" v-if="store.productos.length > 0">
-      <h3>💰 Precio Medio: €{{ averagePrice.toFixed(2) }}</h3>
+      <h3>Precio Medio: €{{ averagePrice.toFixed(2) }}</h3>
     </section>
 
     <!-- Lista de productos filtrados -->
     <section class="lista-productos">
-      <h2>📖 Lista de Productos</h2>
+      <h2>Lista de Productos</h2>
 
       <!-- Mensajes de estado -->
-      <div v-if="store.loading">⏳ Cargando productos...</div>
-      <div v-if="store.error" class="error">❌ Error: {{ store.error }}</div>
+      <div v-if="store.loading">Cargando productos...</div>
+      <div v-if="store.error" class="error"> Error: {{ store.error }}</div>
 
       <!-- Productos filtrados -->
       <ul v-if="productosFiltrados.length > 0">
         <li v-for="producto in productosFiltrados" :key="producto.id" class="producto">
           <ProductoAutoriaCard :producto="producto" />
           <div class="acciones">
-            <button @click="editProducto(producto)">✏️ Editar</button>
-            <button @click="deleteProducto(producto.id)">🗑️ Eliminar</button>
+            <button @click="editProducto(producto)"> Editar</button>
+            <button @click="deleteProducto(producto.id)"> Eliminar</button>
           </div>
         </li>
       </ul>
@@ -43,7 +43,7 @@
 
     <!-- Formulario Crear/Editar producto -->
     <section class="formulario">
-      <h2>{{ isEditing ? "✏️ Editar Producto" : "➕ Agregar Producto" }}</h2>
+      <h2>{{ isEditing ? "Editar Producto" : "➕ Agregar Producto" }}</h2>
       <form @submit.prevent="submitForm">
         <!-- Título -->
         <div>
@@ -67,8 +67,8 @@
         </div>
         <!-- Botones del formulario -->
         <div class="botones">
-          <button type="submit">{{ isEditing ? "Actualizar ✅" : "Crear ➕" }}</button>
-          <button type="button" v-if="isEditing" @click="cancelEdit">Cancelar ❌</button>
+          <button type="submit">{{ isEditing ? "Actualizar " : "Crear " }}</button>
+          <button type="button" v-if="isEditing" @click="cancelEdit">Cancelar </button>
         </div>
       </form>
     </section>
