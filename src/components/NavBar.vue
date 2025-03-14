@@ -80,6 +80,11 @@
           :class="{ 'navbar__menu-item--active': $route.path.startsWith('/producto-autoria') }">
           Producto Autoria
         </router-link>
+        <!-- Nuevo enlace para Producto Autoria -->
+        <router-link to="/balon" class="navbar__menu-item"
+          :class="{ 'navbar__menu-item--active': $route.path.startsWith('/balon') }">
+          Balon
+        </router-link>
         <router-link to="/coche-autoria" class="navbar__menu-item"
           :class="{ 'navbar__menu-item--active': $route.path.startsWith('/coche-autoria') }">
           Coche Autoria

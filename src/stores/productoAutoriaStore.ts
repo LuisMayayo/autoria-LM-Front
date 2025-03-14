@@ -1,4 +1,3 @@
-// src/stores/productoAutoriaStore.ts
 import { defineStore } from 'pinia';
 import axios from 'axios';
 
@@ -15,25 +14,47 @@ export interface ProductoAutoria {
 
 /**
  * Store Pinia para gestionar ProductoAutoria.
- * Incluye métodos CRUD y filtrado por título.
+ * Incluye métodos CRUD y filtrado por título y autor.
  */
 export const useProductoAutoriaStore = defineStore('productoAutoria', {
   state: () => ({
     productos: [] as ProductoAutoria[],
     loading: false,
     error: null as string | null,
-    filtroTitulo: '' // Estado para el filtro por título
+    filtroTitulo: '', // Estado para el filtro por título
+    filtroAutor: '' ,  // Estado para el filtro por autor
+    filtroNumeroSerie: ''   // Estado para el filtro filtroNumeroSerie
   }),
 
   getters: {
     /**
-     * Devuelve los productos filtrados según el título.
+     * Devuelve los productos filtrados según el título y el autor.
      */
     productosFiltrados(state): ProductoAutoria[] {
-      if (!state.filtroTitulo) return state.productos;
-      return state.productos.filter(p =>
-        p.titulo.toLowerCase().includes(state.filtroTitulo.toLowerCase())
-      );
+      let productosFiltrados = state.productos;
+
+      // Filtrar por título si hay texto en `filtroTitulo`
+      if (state.filtroTitulo) {
+        productosFiltrados = productosFiltrados.filter(p =>
+          p.titulo.toLowerCase().includes(state.filtroTitulo.toLowerCase())
+        );
+      }
+
+      // Filtrar por autor si hay texto en `filtroAutor`
+      if (state.filtroAutor) {
+        productosFiltrados = productosFiltrados.filter(p =>
+          p.autor.toLowerCase().includes(state.filtroAutor.toLowerCase())
+        );
+      }
+
+      // Filtrar por numeroSerie si hay texto en `filtroNumeroSerie`
+      if (state.filtroNumeroSerie) {
+        productosFiltrados = productosFiltrados.filter(p =>
+          p.numeroSerie.toLowerCase().includes(state.filtroNumeroSerie.toLowerCase())
+        );
+      }
+
+      return productosFiltrados;
     }
   },
 
@@ -56,13 +77,25 @@ export const useProductoAutoriaStore = defineStore('productoAutoria', {
         this.loading = false;
       }
     },
+
     /**
      * Actualiza el filtro por título.
-     * @param filtro Texto a filtrar en los títulos de los productos.
      */
     setFiltroTitulo(filtro: string) {
       this.filtroTitulo = filtro;
     },
+
+    /**
+     * Actualiza el filtro por autor.
+     */
+    setFiltroAutor(filtro: string) {
+      this.filtroAutor = filtro;
+    },
+    
+    setFiltroNumeroSerie(filtro: string) {
+      this.filtroNumeroSerie = filtro;
+    },
+
 
     /**
      * Obtiene un producto por su identificador.
